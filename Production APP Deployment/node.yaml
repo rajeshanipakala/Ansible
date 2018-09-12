@@ -20,3 +20,8 @@
     command: "curl -sL https://deb.nodesource.com/setup_8.x -o {{folderpath}}/nodesource_setup.sh"
   - name: Installing Downloadedf file
     command: "sudo bash {{folderpath}}/nodesource_setup.sh"
+  - name: Install node js
+    apt:
+      name: nodejs
+      state: present
+    
