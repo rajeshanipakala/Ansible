@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+  - name: "Installing Webserver"
+    package: 
+      name: "{{package_name}}"
+      state: present
+
+#ansible-playbook -i "inventory/hosts" Web2.yaml

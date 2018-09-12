@@ -1,0 +1,8 @@
+---
+- hosts: grpA
+  become: yes
+  tasks:
+  - name: "Installing Apache"
+    apt: 
+      name: apache2
+      state: present
