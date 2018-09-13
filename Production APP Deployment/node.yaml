@@ -11,17 +11,48 @@
   become: yes
   vars: 
     folderpath: /home/ansible/nodesetup
+    appserverport: 8080
   tasks:
   - name: Creating Nodesetup directory
-    path: "{{ folderpath }}"
-    state: directory
-    mode: 0755
+    file:
+      path: "{{ folderpath }}"
+      state: directory
+      mode: 0755
   - name: Download node js package 
     command: "curl -sL https://deb.nodesource.com/setup_8.x -o {{folderpath}}/nodesource_setup.sh"
-  - name: Installing Downloadedf file
+  - name: Installing Downloaded file
     command: "sudo bash {{folderpath}}/nodesource_setup.sh"
   - name: Install node js
     apt:
       name: nodejs
       state: present
-    
+  - name: Copy the code
+    template:
+      src: "templates/hello.js.j2"
+      dest: "{{folderpath}}/hello.js"
+  - name: Install PM2
+    npm:
+      name: coffee-script
+      global: yes
+  - name: "Start Nodejs app"
+    command: "pm2 start {{folderpath}}/hello.js"
+- hosts: web
+  become: yes
+  vars:
+   webserver_dns_name: "ansinode1"
+   appserver_ip: 104.196.47.36
+  tasks:
+  - name: "install NGINX"
+    apt:
+      name: nginx
+      state: present
+  - name: Copy default file
+    template: 
+      src: templates/default.j2
+      dest: /etc/nginx/sites-available/default
+    notify: Restart NGINX
+  handlers:
+  - name: Restart NGINX
+    service:
+      name: nginx
+      state: restarted
