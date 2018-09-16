@@ -1,0 +1,4 @@
+#From galaxy for radis server
+- src: davidwittman.redis
+#From galaxy for mongo db
+- src: stouts.mongodb

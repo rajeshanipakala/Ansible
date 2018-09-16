@@ -1,0 +1,9 @@
+---
+- hosts: centos
+  become: yes
+  tasks:
+  - name: "Installing git"
+    package:
+      name: git
+      state: present
+   

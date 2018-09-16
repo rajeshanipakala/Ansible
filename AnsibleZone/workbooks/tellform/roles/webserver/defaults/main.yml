@@ -1,2 +1,4 @@
 ---
 # defaults file for webserver
+webserver_dns_name: "node-1"
+apserver_ip: 10.142.0.5
