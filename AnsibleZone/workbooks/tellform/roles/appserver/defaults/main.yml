@@ -2,5 +2,5 @@
 # defaults file for appserver
 folderpath: /home/ansible/nodesetup
 appserverport: 8080
-app_ip: 10.142.0.4
+app_ip: 35.231.221.3 
 nodejs_version: 6
